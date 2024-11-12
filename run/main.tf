@@ -21,7 +21,7 @@ resource "google_storage_bucket" "web-bucket" {
 }
 
 resource "google_storage_bucket_object" "default" {
-  name         = "index.html"
+  name         = "public/index.html"
   content      = "<html><h1>hello world from google cloud storage</h1></html>"
   content_type = "text/html"
   bucket       = google_storage_bucket.web-bucket.id
@@ -51,8 +51,8 @@ resource "google_cloud_run_v2_service" "web-bucket" {
     containers {
       image = var.web-image
       volume_mounts {
-        name       = "public-html"
-        mount_path = "/tmp/public"
+        name       = "webdata"
+        mount_path = "/tmp/data/"
       }
       resources {
         cpu_idle = true
@@ -64,7 +64,7 @@ resource "google_cloud_run_v2_service" "web-bucket" {
       }
     }
     volumes {
-      name = "public-html"
+      name = "webdata"
       gcs {
         bucket = google_storage_bucket.web-bucket.name
       }
