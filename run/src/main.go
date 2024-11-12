@@ -48,6 +48,10 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 
 func customerHandler(w http.ResponseWriter, r *http.Request) {
 	io.WriteString(w, "customer handler here")
+	listDocuments(w)
+}
+
+func listDocuments(w http.ResponseWriter) {
 	ctx := context.Background()
 	req := &firestorepb.ListDocumentsRequest{
 		Parent: "projects/lsy1030/databases/(default)/documents",
