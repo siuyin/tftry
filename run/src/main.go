@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 )
 
 const publicHTML = "/tmp/data/public"
@@ -27,9 +28,6 @@ func init() {
 
 func helloHandler(w http.ResponseWriter, r *http.Request) {
 	io.WriteString(w, "hello world\n")
-	// fn := time.Now().Format("2006-01-02T15:04:05.000000.txt")
-
-	// if err := os.WriteFile(dataDir+"/"+fn, []byte("hello endpoint called"), 0664); err != nil {
-	// 	log.Println("error: writing:", fn)
-	// }
+	tm := "hello called: " + time.Now().Format("2006-01-02T15:04:05.000000")
+	fmt.Println(tm)
 }
