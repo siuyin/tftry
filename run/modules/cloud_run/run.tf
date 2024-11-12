@@ -15,8 +15,8 @@ resource "google_cloud_run_service_iam_policy" "noauth" {
 
 
 resource "google_cloud_run_v2_service" "main" {
-  name                = "web-bucket"
-  location            = "asia-southeast1"
+  name                = var.main_bucket
+  location            = var.region
   deletion_protection = false
 
   template {

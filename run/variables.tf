@@ -4,5 +4,9 @@ variable "main_bucket" {
 }
 
 variable "region" {
-    default = "asia-southeast1"
+  default = "asia-southeast1"
+}
+
+variable "image" {
+  default = "siuyin/junk:19157ae"
 }

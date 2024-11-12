@@ -1,3 +1,11 @@
 variable "image" {
-    default = "siuyin/junk:19157ae"
+  type = string
+}
+
+variable "main_bucket" {
+  type = string
+}
+
+variable "region" {
+  type = string
 }

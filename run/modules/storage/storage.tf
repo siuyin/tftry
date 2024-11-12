@@ -1,5 +1,5 @@
 resource "google_storage_bucket" "main" {
-  name          = "lsy1030-web"
+  name          = var.main_bucket
   location      = "asia-southeast1"
   storage_class = "STANDARD"
   force_destroy = true
