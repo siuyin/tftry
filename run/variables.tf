@@ -10,3 +10,7 @@ variable "region" {
 variable "image" {
   default = "siuyin/junk:19157ae"
 }
+
+variable "project_id" {
+  default = "lsy1030"
+}
