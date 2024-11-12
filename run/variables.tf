@@ -8,5 +8,5 @@ variable "region" {
 }
 
 variable "web-image" {
-    default = "siuyin/junk:b15b7ab"
+    default = "siuyin/junk:b0f14d8"
 }

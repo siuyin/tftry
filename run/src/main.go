@@ -27,7 +27,7 @@ func init() {
 }
 
 func helloHandler(w http.ResponseWriter, r *http.Request) {
-	io.WriteString(w, "hello world\n")
 	tm := "hello called: " + time.Now().Format("2006-01-02T15:04:05.000000")
+	io.WriteString(w, tm)
 	fmt.Println(tm)
 }
