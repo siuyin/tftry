@@ -16,6 +16,7 @@ resource "google_storage_bucket" "web-bucket" {
   name          = var.web-bucket
   location      = var.region
   storage_class = "STANDARD"
+  force_destroy = true
   versioning { enabled = false }
   soft_delete_policy { retention_duration_seconds = 0 }
 }
