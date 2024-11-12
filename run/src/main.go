@@ -10,7 +10,7 @@ import (
 )
 
 const publicHTML = "/tmp/data/public"
-const dataDir = "/tmp/data"
+const dataDir = "/tmp/data/logs"
 
 func main() {
 	fmt.Println("starting app...")
@@ -19,6 +19,11 @@ func main() {
 
 	http.Handle("/", http.FileServer(http.Dir(publicHTML)))
 	log.Fatal(http.ListenAndServe(":8080", nil))
+}
+
+func init() {
+	os.MkdirAll(publicHTML, 0775)
+	os.MkdirAll(dataDir, 0775)
 }
 
 func helloHandler(w http.ResponseWriter, r *http.Request) {
