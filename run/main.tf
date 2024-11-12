@@ -12,8 +12,8 @@ provider "google" {
   region  = var.region
 }
 
-resource "google_storage_bucket" "web-bucket" {
-  name          = var.web-bucket
+resource "google_storage_bucket" "main" {
+  name          = var.main_bucket
   location      = var.region
   storage_class = "STANDARD"
   force_destroy = true
@@ -21,11 +21,11 @@ resource "google_storage_bucket" "web-bucket" {
   soft_delete_policy { retention_duration_seconds = 0 }
 }
 
-resource "google_storage_bucket_object" "default" {
+resource "google_storage_bucket_object" "index" {
   name         = "public/index.html"
   content      = "<html><h1>hello world from google cloud storage</h1></html>"
   content_type = "text/html"
-  bucket       = google_storage_bucket.web-bucket.id
+  bucket       = google_storage_bucket.main.id
 }
 
 data "google_iam_policy" "noauth" {
@@ -36,21 +36,21 @@ data "google_iam_policy" "noauth" {
 }
 
 resource "google_cloud_run_service_iam_policy" "noauth" {
-  location = google_cloud_run_v2_service.web-bucket.location
-  project  = google_cloud_run_v2_service.web-bucket.project
-  service  = google_cloud_run_v2_service.web-bucket.name
+  location = google_cloud_run_v2_service.main.location
+  project  = google_cloud_run_v2_service.main.project
+  service  = google_cloud_run_v2_service.main.name
 
   policy_data = data.google_iam_policy.noauth.policy_data
 }
 
-resource "google_cloud_run_v2_service" "web-bucket" {
+resource "google_cloud_run_v2_service" "main" {
   name                = "web-bucket"
   location            = var.region
   deletion_protection = false
 
   template {
     containers {
-      image = var.web-image
+      image = var.image
       volume_mounts {
         name       = "webdata"
         mount_path = "/tmp/data/"
@@ -67,7 +67,7 @@ resource "google_cloud_run_v2_service" "web-bucket" {
     volumes {
       name = "webdata"
       gcs {
-        bucket = google_storage_bucket.web-bucket.name
+        bucket = google_storage_bucket.main.name
       }
     }
     max_instance_request_concurrency = 1000
