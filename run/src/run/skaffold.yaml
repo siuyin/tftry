@@ -1,0 +1,12 @@
+apiVersion: skaffold/v3
+kind: Config
+build:
+  tagPolicy:
+    gitCommit: {}
+  artifacts:
+  - image: siuyin/junk
+    docker:
+      dockerfile: Dockerfile
+deploy:
+  docker:
+    images: [ siuyin/junk ]
