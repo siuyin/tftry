@@ -7,6 +7,3 @@ build:
   - image: siuyin/junk
     docker:
       dockerfile: Dockerfile
-deploy:
-  docker:
-    images: [ siuyin/junk ]
