@@ -12,16 +12,16 @@ provider "google" {
   region  = var.region
 }
 
-
-module "storage" {
-  source = "./modules/storage"
-  main_bucket = var.main_bucket
-}
-
+# There is a 300 second wait for re-creation after database deletion.
 module "db" {
   source = "./modules/db"
   project = var.project_id
   region = var.region
+}
+
+module "storage" {
+  source = "./modules/storage"
+  main_bucket = var.main_bucket
 }
 
 module "cloud_run" {

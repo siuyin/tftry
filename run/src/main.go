@@ -21,7 +21,7 @@ var firestoreClient *firestore.Client
 var err error
 
 func main() {
-	fmt.Println("starting app...")
+	log.Println("starting app...")
 	defer firestoreClient.Close()
 
 	http.HandleFunc("/hello", helloHandler)
