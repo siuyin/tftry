@@ -2,7 +2,7 @@ data "archive_file" "my_func_zip" {
   type             = "zip"
   source_dir       = "${path.module}/src"
   output_file_mode = "0660"
-  output_path      = "${path.module}/src/zip/myfunc-${tag}.zip"
+  output_path      = "${path.module}/src/zip/myfunc-${var.tag}.zip"
 }
 
 resource "google_storage_bucket" "func_bucket" {
@@ -12,9 +12,9 @@ resource "google_storage_bucket" "func_bucket" {
 }
 
 resource "google_storage_bucket_object" "archive" {
-  name   = "myfunc-${tag}.zip"
+  name   = "myfunc-${var.tag}.zip"
   bucket = google_storage_bucket.func_bucket.name
-  source = "${path.module}/src/zip/myfunc-${tag}.zip"
+  source = "${path.module}/src/zip/myfunc-${var.tag}.zip"
 }
 
 resource "google_cloudfunctions2_function" "function" {
