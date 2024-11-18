@@ -50,7 +50,9 @@ resource "google_cloudfunctions2_function" "function" {
 
   service_config {
     min_instance_count = 0
-    available_memory   = "256M"
+    max_instance_count = 1
+    available_cpu = "80m"
+    available_memory   = "135M"
     timeout_seconds    = 60
     # service_account_email = google_service_account.account.email
   }
