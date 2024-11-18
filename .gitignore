@@ -3,4 +3,4 @@
 .terraform
 *.lock.hcl
 *tfstate*
-func/files
+**/*/src/zip
