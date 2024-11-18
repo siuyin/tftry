@@ -42,6 +42,7 @@ resource "google_cloudfunctions2_function" "function" {
     environment_variables = {
       "PROJECT_ID" = var.project_id
       "TOPIC"      = var.topic
+      "PROD"       = "true"
     }
     # service_account_email = google_service_account.account.email
   }

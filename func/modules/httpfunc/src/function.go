@@ -7,6 +7,7 @@ import (
 	"html"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"cloud.google.com/go/pubsub"
@@ -21,10 +22,17 @@ var (
 
 func init() {
 	functions.HTTP("HelloHTTP", helloHTTP)
+	if os.Getenv("PROD") != "" {
+		initPubSub()
+	}
+}
+
+func initPubSub() {
 	ps, err = pubsub.NewClient(context.Background(), dflt.EnvString("PROJECT_ID", "lsy1030"))
 	if err != nil {
 		log.Fatal("could not create pubsub client", err)
 	}
+
 }
 
 // helloHTTP is an HTTP Cloud Function with a request parameter.
@@ -34,7 +42,9 @@ func helloHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	if err := json.NewDecoder(r.Body).Decode(&d); err != nil {
 		fmt.Fprint(w, "Hello, World!")
-		publishHello()
+		if os.Getenv("PROD") != "" {
+			publishHello()
+		}
 		return
 	}
 	if d.Name == "" {
@@ -42,7 +52,9 @@ func helloHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	fmt.Fprintf(w, "Hello, %s!", html.EscapeString(d.Name))
-	publishWithName(d.Name)
+	if os.Getenv("PROD") != "" {
+		publishWithName(d.Name)
+	}
 }
 
 func publishHello() {

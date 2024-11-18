@@ -7,5 +7,5 @@ variable "region" {
 }
 
 variable "topic" {
-default = "terpau"  
+default = "nemo"  
 }
