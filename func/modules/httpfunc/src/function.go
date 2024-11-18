@@ -7,6 +7,7 @@ import (
 	"html"
 	"log"
 	"net/http"
+	"time"
 
 	"cloud.google.com/go/pubsub"
 	"github.com/GoogleCloudPlatform/functions-framework-go/functions"
@@ -41,6 +42,7 @@ func helloHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	fmt.Fprintf(w, "Hello, %s!", html.EscapeString(d.Name))
+	publishWithName(d.Name)
 }
 
 func publishHello() {
@@ -51,4 +53,18 @@ func publishHello() {
 	}
 
 	topic.Publish(ctx, &pubsub.Message{Data: []byte("to gerbau from serpau")})
+}
+
+func publishWithName(name string) {
+	ctx := context.Background()
+	topic := ps.Topic(dflt.EnvString("TOPIC", "gerbau"))
+	if ok, err := topic.Exists(ctx); !ok || err != nil {
+		log.Fatal("topic issue:", err)
+	}
+
+	topic.Publish(ctx,
+		&pubsub.Message{
+			Data: []byte(fmt.Sprintf("Hello: %s. The time is %s", name, time.Now().Format("2006-01-02 15:04:05.000000"))),
+		},
+	)
 }
