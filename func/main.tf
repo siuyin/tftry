@@ -30,6 +30,7 @@ module "httpfunc" {
   project_id = var.project_id
   region     = var.region
   tag        = substr(data.git_commit.refname.sha1, 0, 6)
+  topic      = var.topic
 }
 
 data "git_commit" "refname" {

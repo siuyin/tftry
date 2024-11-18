@@ -25,6 +25,10 @@ resource "google_cloudfunctions2_function" "function" {
   build_config {
     runtime     = "go122"
     entry_point = "HelloHTTP" # Set the entry point
+    environment_variables = {
+      "PROJECT_ID" = var.project_id
+      "TOPIC" = var.topic
+    }
     source {
       storage_source {
         bucket = google_storage_bucket.func_bucket.name
