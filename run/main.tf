@@ -32,3 +32,20 @@ module "storage" {
 #   region = var.region
 # }
 
+resource "google_service_account" "gcf" {
+  account_id = "gcf-sa"
+  display_name = "cloud function service account"
+}
+
+# data "google_iam_policy" "run_invoker" {
+#   binding {
+#     role = "roles/cloudrun.invoker"
+#     members = [google_service_account.gcf.email]
+#   }
+# }
+
+# resource "google_cloudfunctions2_function_iam_policy" "run_invoker" {
+#   project = 
+# }
+
+
