@@ -25,10 +25,6 @@ resource "google_cloudfunctions2_function" "function" {
   build_config {
     runtime     = "go122"
     entry_point = "HelloHTTP" # Set the entry point
-    environment_variables = {
-      "PROJECT_ID" = var.project_id
-      "TOPIC" = var.topic
-    }
     source {
       storage_source {
         bucket = google_storage_bucket.func_bucket.name
@@ -40,9 +36,13 @@ resource "google_cloudfunctions2_function" "function" {
   service_config {
     min_instance_count = 0
     max_instance_count = 1
-    available_cpu = "80m"
+    available_cpu      = "80m"
     available_memory   = "135M"
     timeout_seconds    = 60
+    environment_variables = {
+      "PROJECT_ID" = var.project_id
+      "TOPIC"      = var.topic
+    }
     # service_account_email = google_service_account.account.email
   }
 }
