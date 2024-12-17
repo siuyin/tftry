@@ -7,3 +7,5 @@ variable "region" {
 variable "zone" {
   default = "asia-southeast1-b"
 }
+
+variable passwd {}
