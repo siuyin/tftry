@@ -19,10 +19,10 @@ provider "google" {
 
 provider "git" {}
 
-module "pubsub" {
-  source = "./modules/pubsub"
-  topic  = var.topic
-}
+# module "pubsub" {
+#   source = "./modules/pubsub"
+#   topic  = var.topic
+# }
 
 module "httpfunc" {
   depends_on = [module.pubsub]
