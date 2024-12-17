@@ -14,10 +14,14 @@ provider "google" {
 
 module "compute" {
   source = "./modules/compute"
-  zone = var.zone
+  zone   = var.zone
   passwd = var.passwd
 }
 
 module "network" {
   source = "./modules/network"
+}
+
+output "public_ip" {
+  value = module.compute.ip
 }
