@@ -23,7 +23,7 @@ resource "google_compute_instance" "default" {
       sudo -u postgres psql -c "create role siuyin superuser login password '${var.passwd}'"
       sed -i -e "/^#listen_addresses/ilisten_addresses = '*'" /etc/postgresql/15/main/postgresql.conf
       sed -i -e '$ahost    all             siuyin          10.148.0.0/24           scram-sha-256\
-      host    all             siuyin          118.200.160.112/32      scram-sha-256' /etc/postgresql/15/main/pg_hba.conf
+      host    all             siuyin          14.100.118.31/32      scram-sha-256' /etc/postgresql/15/main/pg_hba.conf
       systemctl restart postgresql
       EOT
   }

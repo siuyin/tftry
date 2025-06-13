@@ -1,5 +1,5 @@
 variable "project_id" {
-  default = "lsyks1217"
+  default = "bof-0215"
 }
 variable "region" {
   default = "asia-southeast1"
